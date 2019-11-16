@@ -1,6 +1,9 @@
 name: .NET Core
 
-on: [push]
+on:
+  push:
+    branches: 
+      - master
 
 jobs:
   build:
@@ -16,4 +19,11 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Make nuget package
-      run: dotnet pack 
+      run: dotnet pack --output nupkgs
+    - name: Setup Nuget.exe
+      uses: warrenbuckley/Setup-Nuget@v1
+    - name: Set up GPR
+      run: nuget source Add -Name "GPR" -Source "https://nuget.pkg.github.com/PennyDreadfulMTG/index.json" -UserName PennyDreadfulMTG -Password ${{ secrets.GITHUB_TOKEN }}
+    - name: Push to GPR
+      run: nuget push nupkgs/*.nupkg -Source "GPR"
+  
