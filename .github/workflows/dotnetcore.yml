@@ -25,4 +25,4 @@ jobs:
     - name: Set up GPR
       run: nuget source Add -Name "GPR" -Source "https://nuget.pkg.github.com/PennyDreadfulMTG/index.json" -UserName PennyDreadfulMTG -Password ${{ secrets.GITHUB_TOKEN }}
     - name: Push to GPR
-      run: nuget push nupkgs/*.nupkg -Source "GPR"
+      run: nuget push nupkgs\*.nupkg -Source "GPR"
