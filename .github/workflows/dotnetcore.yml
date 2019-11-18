@@ -21,5 +21,5 @@ jobs:
     - name: Make nuget package
       run: dotnet pack --output nupkgs
     - name: Push to Nuget
-      run: nuget push nupkgs/*.nupkg -k ${{ secrets.NUGET }}
+      run: dotnet nuget push nupkgs/*.nupkg -k ${{ secrets.NUGET }}
   
