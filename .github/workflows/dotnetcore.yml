@@ -18,9 +18,13 @@ jobs:
         dotnet-version: 2.2.108
     - name: Build with dotnet
       run: dotnet build --configuration Release
+    - name: Nerdbank.GitVersioning
+      uses: dotnet/nbgv@v0.3.1
+      id: nbgv
     - name: publish on version change
       id: publish_nuget
       uses: rohith/publish-nuget@v2
       if: github.ref == 'refs/heads/master'
       with:
         PROJECT_FILE_PATH: Gatherling.csproj
+        VERSION_STATIC:  ${{ steps.nbgv.outputs.NuGetPackageVersion }}
