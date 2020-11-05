@@ -17,6 +17,8 @@ namespace Gatherling.Models
 
         public IEnumerable<string> Players => Matches.SelectMany(m => m.Players);
 
+        public EventStructure Structure { get; private set; }
+
         public static Round FromPaste(string[] lines)
         {
             var round = new Round();
@@ -73,7 +75,14 @@ namespace Gatherling.Models
                         IsFinals = m.Value<int>("timing") > 1,
                     };
                     if (tournament != null)
+                    {
                         tournament.Rounds[round.RoundNum] = round;
+                        if (round.IsFinals)
+                            round.Structure = tournament.Finals.Mode;
+                        else
+                            round.Structure = tournament.Main.Mode;
+
+                    }
                 }
                 var p = new Pairing
                 {

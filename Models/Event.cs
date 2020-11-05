@@ -16,7 +16,6 @@ namespace Gatherling.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
-
         public string Channel { get; set; }
 
         public string Series { get; set; }
@@ -26,6 +25,16 @@ namespace Gatherling.Models
         public SubEvent Main { get; set; }
 
         public SubEvent Finals { get; set; }
+        public int CurrentRoundNum { get; }
+
+        public Round CurrentRound
+        {
+            get
+            {
+                Rounds.TryGetValue(CurrentRoundNum, out var round);
+                return round;
+            }
+        }
 
         public string[] Unreported { get; set; }
 
@@ -51,7 +60,7 @@ namespace Gatherling.Models
         }
         public override int GetHashCode()
         {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         public bool Equals(Event x, Event y)
@@ -89,6 +98,7 @@ namespace Gatherling.Models
             Series = data.Value<string>("series");
             Main = new SubEvent(data.Value<string>("mainstruct"), data.Value<int>("mainrounds"));
             Finals = new SubEvent(data.Value<string>("finalstruct"), data.Value<int>("finalrounds"));
+            CurrentRoundNum = data.Value<int>("current_round");
             if (data.ContainsKey("unreported"))
                 Unreported = ((JArray)data["unreported"]).Values<string>().ToArray();
             try
