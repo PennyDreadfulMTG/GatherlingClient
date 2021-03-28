@@ -26,10 +26,10 @@ jobs:
       id: nbgv
     - name: publish on version change
       id: publish_nuget
-      uses: rohith/publish-nuget@v2.5.0
+      uses: rohith/publish-nuget@v2.5.5
       if: github.ref == 'refs/heads/master'
       with:
         PROJECT_FILE_PATH: Gatherling.csproj
         VERSION_STATIC:  ${{ steps.nbgv.outputs.NuGetPackageVersion }}
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        INCLUDE_SYMBOLS: true
+        INCLUDE_SYMBOLS: false
