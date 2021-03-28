@@ -51,18 +51,7 @@ namespace Gatherling.VersionedApis
         }
         public override async Task<Round> GetCurrentPairings(string eventName)
         {
-            var uri = new Uri(new Uri(Settings.Host), "event.php?view=match&name=" + eventName);
-            var eventCP = new HtmlDocument();
-            await ScrapeAsync(uri, eventCP);
-            var paste = eventCP.DocumentNode.Descendants("code").FirstOrDefault();
-            if (paste == null)
-            {
-                return null;
-            }
-            var lines = from l in paste.ChildNodes
-                        where !string.IsNullOrWhiteSpace(l.InnerText)
-                        select l.InnerText;
-            return Round.FromPaste(lines.ToArray());
+            throw new NotImplementedException();
         }
 
         public override Task<Round> GetCurrentPairings(Event tournament)
