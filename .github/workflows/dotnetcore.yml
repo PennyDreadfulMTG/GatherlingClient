@@ -26,7 +26,7 @@ jobs:
       id: nbgv
     - name: publish on version change
       id: publish_nuget
-      uses: rohith/publish-nuget@v2
+      uses: rohith/publish-nuget@v2.5.0
       if: github.ref == 'refs/heads/master'
       with:
         PROJECT_FILE_PATH: Gatherling.csproj
