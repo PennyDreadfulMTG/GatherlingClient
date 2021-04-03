@@ -49,14 +49,10 @@ namespace Gatherling.VersionedApis
                 }
             }
         }
-        public override async Task<Round> GetCurrentPairings(string eventName)
-        {
-            throw new NotImplementedException();
-        }
 
         public override Task<Round> GetCurrentPairings(Event tournament)
         {
-            return GetCurrentPairings(tournament.Name);
+            throw new NotImplementedException();
         }
 
         private Event LoadEvent(string name)

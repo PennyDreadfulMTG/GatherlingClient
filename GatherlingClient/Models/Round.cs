@@ -18,7 +18,7 @@ namespace Gatherling.Models
 
         public EventStructure Structure { get; private set; }
 
-        internal static Round FromJson(JArray matches, Event tournament = null)
+        internal static Round FromJson(JArray matches, Event tournament)
         {
             var round = new Round();
             if (matches == null)
@@ -32,15 +32,11 @@ namespace Gatherling.Models
                         RoundNum = m.Value<int>(nameof(round)),
                         IsFinals = m.Value<int>("timing") > 1,
                     };
-                    if (tournament != null)
-                    {
-                        tournament.Rounds[round.RoundNum] = round;
-                        if (round.IsFinals)
-                            round.Structure = tournament.Finals.Mode;
-                        else
-                            round.Structure = tournament.Main.Mode;
-
-                    }
+                    tournament.Rounds[round.RoundNum] = round;
+                    if (round.IsFinals)
+                        round.Structure = tournament.Finals.Mode;
+                    else
+                        round.Structure = tournament.Main.Mode;
                 }
                 var p = new Pairing
                 {

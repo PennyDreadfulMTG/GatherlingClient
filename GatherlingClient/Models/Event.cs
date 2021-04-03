@@ -38,7 +38,7 @@ namespace Gatherling.Models
 
         public string[] Unreported { get; set; }
 
-        public Standing[] Standings;
+        public Standing[] Standings { get; }
 
         public Task<Round> GetCurrentPairingsAsync()
         {
@@ -46,6 +46,7 @@ namespace Gatherling.Models
         }
 
         public Dictionary<int, Round> Rounds { get; } = new Dictionary<int, Round>();
+        public Dictionary<string, Person> Players { get; }
 
         public override string ToString()
         {
@@ -88,6 +89,12 @@ namespace Gatherling.Models
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            Players = new Dictionary<string, Person>();
+            foreach (var p in (JObject)data["players"])
+            {
+                 Players.Add(p.Key, p.Value.ToObject<Person>());
             }
 
             Gatherling = api ?? throw new ArgumentNullException(nameof(api));

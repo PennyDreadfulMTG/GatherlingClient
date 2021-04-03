@@ -102,12 +102,6 @@ namespace Gatherling
             return VersionedApi.GetEvent(name);
         }
 
-        [Obsolete]
-        public Task<Round> GetCurrentPairings(string eventName)
-        {
-            return VersionedApi.GetCurrentPairings(eventName);
-        }
-
         public Task<Deck> GetDeckAsync(int deckID)
         {
             return VersionedApi.GetDeckAsync(deckID);
