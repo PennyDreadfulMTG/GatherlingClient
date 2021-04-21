@@ -22,6 +22,7 @@ namespace Tests
                 events = await GatherlingClient.PennyDreadful.GetActiveEventsAsync();
             Assume.That(events.Length > 0);
             var first = events.First();
+            Assert.That(first.CurrentRound.Matches.Any());
             var pairings = await first.GetCurrentPairingsAsync();
             Assert.That(pairings.Matches.Any());
             Assert.That(first.Channel != null);
@@ -42,6 +43,7 @@ namespace Tests
             Assert.That(e.Players.Any(p => p.Value.DiscordId.HasValue));
             Assert.That(e.Players.Any(p => p.Value.MtgoUsername != null));
             Assert.That(e.Players.Any(p => p.Value.MtgaUsername != null));
+            Assert.That(e.Rounds[8].Matches[0].PlayerA != null);
         }
     }
 }

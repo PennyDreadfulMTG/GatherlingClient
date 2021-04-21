@@ -91,10 +91,10 @@ namespace Gatherling.Models
                 throw new ArgumentNullException(nameof(data));
             }
 
-            Players = new Dictionary<string, Person>();
-            foreach (var p in (JObject)data["players"])
+            Players = new Dictionary<string, Person>(StringComparer.InvariantCultureIgnoreCase);
+            foreach (var p in (JArray)data["players"])
             {
-                 Players.Add(p.Key, p.Value.ToObject<Person>());
+                 Players.Add(p.Value<string>("name"), p.ToObject<Person>());
             }
 
             Gatherling = api ?? throw new ArgumentNullException(nameof(api));
@@ -124,6 +124,7 @@ namespace Gatherling.Models
                     SentrySdk.CaptureException(c);
                 });
             }
+            Round.FromJson((JArray)data["matches"], this);
         }
     }
 }

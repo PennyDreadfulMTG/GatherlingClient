@@ -43,6 +43,8 @@ namespace Gatherling.Models
                     A = m.Value<string>("playera"),
                     B = m.Value<string>("playerb"),
                     Verification = m.Value<string>("verification"),
+                    PlayerA = tournament.Players[m.Value<string>("playera")],
+                    PlayerB = tournament.Players[m.Value<string>("playerb")],
                 };
                 if (m["playera_wins"] != null)
                 {

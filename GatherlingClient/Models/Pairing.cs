@@ -15,6 +15,9 @@ namespace Gatherling.Models
 
         public string[] Players => A == B ? new string[] { A } : new string[] { A, B };
 
+        public Person PlayerA { get; internal set; }
+        public Person PlayerB { get; internal set; }
+
         public override string ToString()
         {
             CalculateRes();
