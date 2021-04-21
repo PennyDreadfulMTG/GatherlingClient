@@ -27,7 +27,7 @@ jobs:
       uses: rohith/publish-nuget@v2.5.5
       if: github.ref == 'refs/heads/master'
       with:
-        PROJECT_FILE_PATH: Gatherling.csproj
+        PROJECT_FILE_PATH: GatherlingClient/Gatherling.csproj
         VERSION_STATIC:  ${{ steps.nbgv.outputs.NuGetPackageVersion }}
         NUGET_KEY: ${{ secrets.NUGET_KEY }}
         INCLUDE_SYMBOLS: false
