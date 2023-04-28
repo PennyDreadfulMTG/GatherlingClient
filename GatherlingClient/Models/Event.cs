@@ -27,6 +27,8 @@ namespace Gatherling.Models
         public SubEvent Finals { get; set; }
         public int CurrentRoundNum { get; }
 
+        public string Client { get; set; }
+
         public Round CurrentRound
         {
             get
@@ -108,6 +110,7 @@ namespace Gatherling.Models
             CurrentRoundNum = data.Value<int>("current_round");
             if (data.ContainsKey("unreported"))
                 Unreported = ((JArray)data["unreported"]).Values<string>().ToArray();
+            Client = data.Value<string>("client");
             try
             {
                 if (data.ContainsKey("standings"))
