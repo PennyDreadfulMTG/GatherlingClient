@@ -29,6 +29,10 @@ namespace Gatherling.Models
                     parsed = EventStructure.Swiss;
                     ModeRaw = "Swiss";
                 }
+                else if (mode == "Single Elimination")
+                {
+                    parsed = EventStructure.SingleElimination;
+                }
             }
             Mode = parsed;
         }
