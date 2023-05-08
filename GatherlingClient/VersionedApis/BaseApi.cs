@@ -29,6 +29,8 @@ namespace Gatherling.VersionedApis
                 BaseAddress = Settings.Host,
             };
             webClient.Headers[HttpRequestHeader.UserAgent] = "infobot/PDBot";
+            webClient.Headers["HTTP_X_USERNAME"] = Settings.Username;
+            webClient.Headers["HTTP_X_APIKEY"] = Settings.APIKey;
             return webClient;
         }
 
@@ -38,7 +40,7 @@ namespace Gatherling.VersionedApis
             {
                 var response = await wc.UploadValuesTaskAsync("login.php", new System.Collections.Specialized.NameValueCollection
                 {
-                    { "username", nameof(PDBot) },
+                    { "username", Settings.Username },
                     { "password", Settings.Passkey },
                 });
             }
