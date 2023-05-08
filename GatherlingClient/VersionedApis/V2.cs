@@ -66,12 +66,15 @@ namespace Gatherling.VersionedApis
 
         public async override Task<Event> GetEvent(string name)
         {
-            using (var api = CreateWebClient())
-            {
-                string blob = await api.DownloadStringTaskAsync("/ajax.php?action=eventinfo&event=" + Uri.EscapeUriString(name));
-                var json = JObject.Parse(blob);
-                return LoadEvent(name, json);
-            }
+            using var api = CreateWebClient();
+            string blob = await api.DownloadStringTaskAsync("/ajax.php?action=eventinfo&event=" + Uri.EscapeUriString(name));
+            var json = JObject.Parse(blob);
+            return LoadEvent(name, json);
+        }
+        public override async Task CreatePairingAsync(Event tournament, int round, Person a, Person b, string res)
+        {
+            using var api = CreateWebClient();
+            await api.DownloadStringTaskAsync($"/api.php?action=create_pairing&event={tournament.Id}&round={round}&player_a={Uri.EscapeUriString(a.Name)}&player_b={Uri.EscapeUriString(b.Name)}&res={res}");
         }
     }
 }

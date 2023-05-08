@@ -78,5 +78,10 @@ namespace Gatherling.VersionedApis
                 return JsonConvert.DeserializeObject<Deck>(await wc.DownloadStringTaskAsync($"ajax.php?action=deckinfo&deck={deckID}").ConfigureAwait(false));
             }
         }
+
+        public virtual Task CreatePairingAsync(Event tournament, int round, Person a, Person b, string res)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

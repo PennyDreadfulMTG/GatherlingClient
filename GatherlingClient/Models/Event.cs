@@ -133,5 +133,7 @@ namespace Gatherling.Models
             }
             Round.FromJson((JArray)data["matches"], this);
         }
+
+        public Task CreatePairingAsync(int round, Person A, Person B, string Res) => Gatherling.CreatePairingAsync(this, round, A, B, Res);
     }
 }

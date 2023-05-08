@@ -120,6 +120,11 @@ namespace Gatherling
             return VersionedApi.ResetPasswordAsync(playerName);
         }
 
+        public Task CreatePairingAsync(Event tournament, int round, Person a, Person b, string res)
+        {
+            return VersionedApi.CreatePairingAsync(tournament, round, a, b, res);
+        }
+
         private int _apiVersion;
         public int ApiVersion
         {
@@ -155,11 +160,5 @@ namespace Gatherling
                 return _apiVersion;
             }
         }
-
-
-
-
-
-
     }
 }
