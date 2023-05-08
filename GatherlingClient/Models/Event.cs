@@ -13,6 +13,8 @@ namespace Gatherling.Models
     {
         internal IGatherlingApi Gatherling;
 
+        public string Id { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -108,6 +110,8 @@ namespace Gatherling.Models
             Main = new SubEvent(data.Value<string>("mainstruct"), data.Value<int>("mainrounds"));
             Finals = new SubEvent(data.Value<string>("finalstruct"), data.Value<int>("finalrounds"));
             CurrentRoundNum = data.Value<int>("current_round");
+            Host = data.Value<string>("host");
+            Id = data.Value<string>("id");
             if (data.ContainsKey("unreported"))
                 Unreported = ((JArray)data["unreported"]).Values<string>().ToArray();
             Client = data.Value<string>("client");
