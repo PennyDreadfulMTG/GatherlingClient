@@ -12,9 +12,10 @@ namespace Gatherling.Models
     public class Event : IEqualityComparer<Event>
     {
         internal IGatherlingApi Gatherling;
+        private Series _series = null;
 
         public string Id { get; set; }
-
+        public DateTimeOffset Start { get; private set; }
         [JsonProperty("name")]
         public string Name { get; set; }
 
@@ -112,6 +113,8 @@ namespace Gatherling.Models
             CurrentRoundNum = data.Value<int>("current_round");
             Host = data.Value<string>("host");
             Id = data.Value<string>("id");
+            var start = data.Value<string>("start");
+            Start = DateTimeOffset.Parse(start + "-0500");
             if (data.ContainsKey("unreported"))
                 Unreported = ((JArray)data["unreported"]).Values<string>().ToArray();
             Client = data.Value<string>("client");
@@ -135,5 +138,11 @@ namespace Gatherling.Models
         }
 
         public Task CreatePairingAsync(int round, Person A, Person B, string Res) => Gatherling.CreatePairingAsync(this, round, A, B, Res);
+
+        public async Task<Series> GetSeriesAsync()
+        {
+            _series ??= await this.Gatherling.GetSeries(this.Series);
+            return _series;
+        }
     }
 }

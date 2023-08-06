@@ -83,5 +83,10 @@ namespace Gatherling.VersionedApis
         {
             throw new NotImplementedException();
         }
+
+        public virtual Task<Series> GetSeries(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

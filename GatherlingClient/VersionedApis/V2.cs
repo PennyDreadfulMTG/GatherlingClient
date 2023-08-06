@@ -76,5 +76,13 @@ namespace Gatherling.VersionedApis
             using var api = CreateWebClient();
             await api.DownloadStringTaskAsync($"/api.php?action=create_pairing&event={tournament.Id}&round={round}&player_a={Uri.EscapeUriString(a.Name)}&player_b={Uri.EscapeUriString(b.Name)}&res={res}");
         }
+
+        public async override Task<Series> GetSeries(string name)
+        {
+            using var api = CreateWebClient();
+            var blob = await api.DownloadStringTaskAsync($"/api.php?action=series_info&series={name}");
+            var json = JObject.Parse(blob);
+            return new Series(json, this);
+        }
     }
 }

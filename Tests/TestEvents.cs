@@ -21,7 +21,7 @@ namespace Tests
             if (events.Length == 0)
                 events = await GatherlingClient.PennyDreadful.GetActiveEventsAsync();
             Assume.That(events.Length > 0);
-            var first = events.First();
+            var first = events.Where(e => e.Main.Mode != Gatherling.Models.EventStructure.League).FirstOrDefault() ?? events.Last();
             Assert.That(first.CurrentRound.Matches.Any());
             var pairings = await first.GetCurrentPairingsAsync();
             Assert.That(pairings.Matches.Any());
@@ -44,6 +44,17 @@ namespace Tests
             Assert.That(e.Players.Any(p => p.Value.MtgoUsername != null));
             Assert.That(e.Players.Any(p => p.Value.MtgaUsername != null));
             Assert.That(e.Rounds[8].Matches[0].PlayerA != null);
+        }
+
+        [Test]
+        public async Task TestSeries()
+        {
+            var e = await GatherlingClient.GatherlingDotCom.GetEvent("Penny Dreadful Thursdays 29.01");
+            Assert.NotNull(e.Series);
+            var series = await e.GetSeriesAsync();
+            Assert.NotNull(series);
+            Assert.IsNotEmpty(series.Name);
+            Assert.AreEqual(e.Series, series.Name);
         }
     }
 }

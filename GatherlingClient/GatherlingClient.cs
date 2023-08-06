@@ -125,6 +125,11 @@ namespace Gatherling
             return VersionedApi.CreatePairingAsync(tournament, round, a, b, res);
         }
 
+        public Task<Series> GetSeries(string name)
+        {
+            return VersionedApi.GetSeries(name);
+        }
+
         private int _apiVersion;
         public int ApiVersion
         {

@@ -17,5 +17,6 @@ namespace Gatherling
         Task<string> ResetPasswordAsync(string playerName);
         Task<Event> GetEvent(string name);
         Task CreatePairingAsync(Event tournament, int round, Person a, Person b, string res);
+        Task<Series> GetSeries(string name);
     }
 }
