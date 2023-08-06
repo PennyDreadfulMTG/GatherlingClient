@@ -144,5 +144,12 @@ namespace Gatherling.Models
             _series ??= await this.Gatherling.GetSeries(this.Series);
             return _series;
         }
+
+        public TimeSpan ElapsedTime { get
+            {
+                var duration = DateTimeOffset.Now - Start;
+                return duration;
+            } 
+        }
     }
 }
