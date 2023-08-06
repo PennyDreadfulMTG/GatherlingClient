@@ -7,10 +7,7 @@ pull_request_rules:
         method: merge
   - name: automatic merge dependency updates
     conditions:
-      - status-success=mypy
-      - status-success=lint
-      - status-success=test
-      - status-success=jslint
+      - status-success=build
       - author~=(pyup-bot|dependabot)
       - -files~=^(!?.github/workflows/)
     actions:
