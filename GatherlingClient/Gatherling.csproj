@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.51" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Sentry" Version="3.35.1" />
+    <PackageReference Include="Sentry" Version="3.36.0" />
   </ItemGroup>
 
   <ItemGroup>
