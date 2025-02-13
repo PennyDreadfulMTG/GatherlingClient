@@ -128,11 +128,7 @@ namespace Gatherling.Models
             }
             catch (Exception c)
             {
-                SentrySdk.WithScope(scope =>
-                {
-                    scope.SetExtra("event", data);
-                    SentrySdk.CaptureException(c);
-                });
+                SentrySdk.CaptureException(c, scope => scope.SetExtra("event", data));
             }
             Round.FromJson((JArray)data["matches"], this);
         }

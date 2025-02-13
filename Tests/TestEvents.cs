@@ -1,5 +1,6 @@
 using Gatherling;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using PDBot.API;
 using System;
 using System.Collections.Generic;
@@ -22,39 +23,39 @@ namespace Tests
                 events = await GatherlingClient.PennyDreadful.GetActiveEventsAsync();
             Assume.That(events.Length > 0);
             var first = events.Where(e => e.Main.Mode != Gatherling.Models.EventStructure.League).FirstOrDefault() ?? events.Last();
-            Assert.That(first.CurrentRound.Matches.Any());
+            ClassicAssert.That(first.CurrentRound.Matches.Any());
             var pairings = await first.GetCurrentPairingsAsync();
-            Assert.That(pairings.Matches.Any());
-            Assert.That(first.Channel != null);
+            ClassicAssert.That(pairings.Matches.Any());
+            ClassicAssert.That(first.Channel != null);
         }
 
         [Test]
         public async Task ParseStandings()
         {
             var @event = await GatherlingClient.GatherlingDotCom.GetEvent("Penny Dreadful Thursdays 12.01");
-            Assert.NotNull(@event.Standings);
+            ClassicAssert.NotNull(@event.Standings);
         }
 
         [Test]
         public async Task TestPlayers()
         {
             var e = await GatherlingClient.GatherlingDotCom.GetEvent("Penny Dreadful Thursdays 19.03");
-            Assert.IsNotEmpty(e.Players);
-            Assert.That(e.Players.Any(p => p.Value.DiscordId.HasValue));
-            Assert.That(e.Players.Any(p => p.Value.MtgoUsername != null));
-            Assert.That(e.Players.Any(p => p.Value.MtgaUsername != null));
-            Assert.That(e.Rounds[8].Matches[0].PlayerA != null);
+            ClassicAssert.IsNotEmpty(e.Players);
+            ClassicAssert.That(e.Players.Any(p => p.Value.DiscordId.HasValue));
+            ClassicAssert.That(e.Players.Any(p => p.Value.MtgoUsername != null));
+            ClassicAssert.That(e.Players.Any(p => p.Value.MtgaUsername != null));
+            ClassicAssert.That(e.Rounds[8].Matches[0].PlayerA != null);
         }
 
         [Test]
         public async Task TestSeries()
         {
             var e = await GatherlingClient.GatherlingDotCom.GetEvent("Penny Dreadful Thursdays 29.01");
-            Assert.NotNull(e.Series);
+            ClassicAssert.NotNull(e.Series);
             var series = await e.GetSeriesAsync();
-            Assert.NotNull(series);
-            Assert.IsNotEmpty(series.Name);
-            Assert.AreEqual(e.Series, series.Name);
+            ClassicAssert.NotNull(series);
+            ClassicAssert.IsNotEmpty(series.Name);
+            ClassicAssert.AreEqual(e.Series, series.Name);
         }
     }
 }
