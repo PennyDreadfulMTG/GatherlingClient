@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.3" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Sentry" Version="5.16.0" />
   </ItemGroup>
